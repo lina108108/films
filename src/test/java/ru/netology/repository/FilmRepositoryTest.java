@@ -1,6 +1,8 @@
 package ru.netology.repository;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.TextParsingException;
 import ru.netology.domain.FilmItem;
 import ru.netology.repository.FilmRepository;
 
@@ -94,7 +96,7 @@ class FilmRepositoryTest {
         repository.save(first);
         repository.save(second);
         repository.save(third);
-        repository.removeById(idToRemove);
+        Assertions.assertThrows(ArrayIndexOutOfBoundsException.class, () -> repository.removeById(idToRemove));
         FilmItem[] expected = new FilmItem[]{first, second, third};
         FilmItem[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
